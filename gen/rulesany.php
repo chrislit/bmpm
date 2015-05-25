@@ -176,10 +176,10 @@
     array("sio","","","(So[$polish]|so)"), 
     array("siu","","","(Su[$polish]|sju)"), 
      
-    array("si","[äöëaáuiíoóeéêy]","","(Si[$polish]|si|zi[".($portuguese+$french+$italian+$german)."])"),
+    array("si","[äöüaáuiíoóeéêy]","","(Si[$polish]|si|zi[".($portuguese+$french+$italian+$german)."])"),
     array("si","","","(Si[$polish]|si|zi[$german])"),
     array("s","[aáuiíoóeéêy]","[aáuíoóeéêy]","(s|z[".($portuguese+$french+$italian+$german)."])"), 
-    array("s","","[aeouäöë]","(s|z[$german])"),
+    array("s","","[aeouäöü]","(s|z[$german])"),
     array("s","[aeiouy]","[dglmnrv]","(s|z|Z[$portuguese]|[$french])"), // Groslot
     array("s","","[dglmnrv]","(s|z|Z[$portuguese])"), 
                  

@@ -127,7 +127,7 @@
     array("sio","","","(So[$polish]|so)"), 
     array("siu","","","(Su[$polish]|sju)"), 
     array("si","","","(Si[$polish]|si|zi[$german])"),
-    array("s","","[aeiouäöë]","(s|z[$german])"),
+    array("s","","[aeiouäöü]","(s|z[$german])"),
         
     array("gue","","","ge"), 
     array("gui","","","gi"), 
