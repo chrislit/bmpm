@@ -1,5 +1,6 @@
 <?php
-
+ /*
+  */
   // These rules are applied after the word has been transliterated into the phonetic alphabet
   // These rules are substitution rules within the phonetic character space rather than mapping rules
   
