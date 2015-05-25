@@ -1,0 +1,172 @@
+BEIDER MORSE PHONETIC MATCHING (BMPM) RELEASE NOTES
+
+  /*
+   *
+   * Copyright Alexander Beider and Stephen P. Morse, 2008
+   *
+   * This file is part of the Beider-Morse Phonetic Matching (BMPM) System. 
+
+   * BMPM is free software: you can redistribute it and/or modify
+   * it under the terms of the GNU General Public License as published by
+   * the Free Software Foundation, either version 3 of the License, or
+   * (at your option) any later version.
+   *
+   * BMPM is distributed in the hope that it will be useful,
+   * but WITHOUT ANY WARRANTY; without even the implied warranty of
+   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   * GNU General Public License for more details.
+   *
+   * You should have received a copy of the GNU General Public License
+   * along with BMPM.  If not, see <http://www.gnu.org/licenses/>.
+   *
+   */
+
+For questions, contact either of the following:
+
+   Alexander Beider (albeider@yahoo.fr)
+   Stephen Morse (steve@stevemorse.org)
+
+1. Files needed
+
+     // for BM phonetice matching
+
+     phoneticutils.php
+     phoneticengine.php
+
+     gen subfolder (generic for all names)
+
+        languagenames.php
+        lang.php
+        approxcommon.php
+        exactcommon.php
+        exactapproxcommon.php
+        hebrewcommon.php
+        rulesXXX.php
+        approxXXX.php
+        exactXXX.php
+           where XXX =
+              any, cyrillic, czech, dutch, english, french, german, greek, greeklatin,
+              hebrew, hungarian, italian, polish, portuguese, romanian, russian,
+              spanish, turkish
+
+     ash subfolder (optimized for ashkenazi names)
+
+        languagenames.php
+        lang.php
+        approxcommon.php
+        exactcommon.php
+        exactapproxcommon.php
+        hebrewcommon.php
+        rulesXXX.php
+        approxXXX.php
+        exactXXX.php
+           where XXX =
+              any, cyrillic, english, french, german, hebrew,
+              hungarian, polish, romanian, russian, spanish
+
+     sep subfolder (optimized for sephardic names)
+
+        languagenames.php
+        lang.php
+        approxcommon.php
+        exactcommon.php
+        exactapproxcommon.php
+        hebrewcommon.php
+        rulesXXX.php
+        approxXXX.php
+        exactXXX.php
+           where XXX =
+              any, french, hebrew, italian, portuguese, spanish
+
+    // for DM soundex matching
+
+    dmsoundex.php
+    dmlat.php
+
+2. Batch encoding of all names in database
+
+   Note: If you have generated your PHP search engine using the one-step
+   search application generator, you encode the names in your database
+   using the intructions in question 410 on the FAQ page.  The instructions
+   in this section do not apply to you.
+   
+   Use a modified version of batchSample.php.  That script has very specific input/output
+   file format, and you will probably want to modify the script to accomodate your
+   particular format.
+   
+   The invocaton of this script is as follows:
+   
+      batch.php?inputFileName=XXX&outputFileName=yyy
+
+   Each line of input File XXX is of the format
+
+      name
+      name
+      ...
+      name
+
+   Each line of output file YYY is of the format
+
+      name\tBMCODE\tDMCODE
+
+3. Code to be added to your PHP search engine
+
+    The easiest approach is to place the phonetic routines (phoneticengine.php
+    and phoneticutils.php) in the same folder as your search engine.
+    Alternatively, you can place the phonetic routines in some other folder
+    of your choice.  In either case, the gen, ash, and sep directories
+    are to be subfolders of the folder in which you place the phonetic
+    routines.
+
+    If you have generated your PHP search engine using the one-step
+    search-application generator, you don't need to add any special code
+    to your search engine.  However, if you've chosen not to place
+    the phonetic routines in the same folder as your search engine, you will
+    need to tell the search engine where they are.  You do that by modifying
+    the $folder variable in your search engine accordingly.
+     
+    If you have written your PHP search engine from scratch, then you will need to
+    include the code below into it at an appropriate place.  This code assumes
+    the you have placed the phonetic routines in the same folder as your search
+    engine.  If you've placed them somewhere else, you will have to modify the
+    paths in the include statements accordingly.
+
+
+    // encode name using BM phonetic code
+    // assume name to be encoded is in $name, can be in utf-8 or in html-ampersand notation
+
+    include "phoneticutils.php";
+    include "phoneticengine.php";
+    include "gen/lang.php";
+    include "gen/approxcommon.php";
+    for ($i=0; $i<count($languages); $i++) {
+      include "gen/rules" . $languages[$i] . ".php";
+      include "gen/approx" . $languages[$i] . ".php";
+    }
+    $lang = Language($name, $languageRules);
+    $codes =
+      PhoneticNumbers(
+        Phonetic($name,
+                 $rules[LanguageIndexFromCode($lang, $languages)],
+                 $approxCommon,
+                 $approx[LanguageIndexFromCode($lang, $languages)],
+                 $lang));
+
+    // encode name using DM soundex code, assume name to be encoded is in $name
+  
+    include "dmsoundex.php";
+    $codes = soundx_name($name);
+
+4. Sephardic and Ashkenazic Jewish Names
+
+   A certain amount of optimization can be done if it is known a priori that the names
+   involved are sephardic or Ashkenazic names.  In that case add "type=ash" or "type=sep"
+   to the invocation lines of batch.php as well as your php search engine.  That is,
+   invoke batch.php as follows for ashkenazic names:
+   
+      batch.php?inputFileName=XXX&outputFileName=yyy&type=ash
+
+   Also, if you have generated your PHP search engine using the one-step
+   search-application generator, you need to change $langtype="gen" to either
+   $langtype="ash" or $langtype="sep".
+

@@ -1,0 +1,14 @@
+--- hebrewcommon.php.old	2010-05-25 20:01:26.861268800 -0700
++++ hebrewcommon.php	2011-12-05 17:21:18.355916800 -0800
+@@ -111,8 +111,9 @@
+     // array("z","","","(z|Z)"),
+     // array("d","","","(d|dZ)"),
+        
+-    array("TB","","$","(t|s)"), // tav from ruleshebrew; only Ashkenazic
+-    array("TB","","","t"), // tav from ruleshebrew; only Ashkenazic
++    array("TB","^","","t"), // tav from ruleshebrew; only Ashkenazic
++    array("TB","","$","s"), // tav from ruleshebrew; only Ashkenazic
++    array("TB","","","(t|s)"), // tav from ruleshebrew; only Ashkenazic
+     array("T","","","t"),   // tet from ruleshebrew
+     
+    // array("k","","","(k|x)"),
