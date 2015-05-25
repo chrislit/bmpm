@@ -21,42 +21,40 @@
    *
    */
 
-// GENERIC
+// Ashkenazic
 include_once "exactapproxcommon.php";
 
 $approxCommon = array(
 
-// DUTCH 
-    array ("van", "^", "[bp]", "(vam|)"), 
-    array ("van", "^", "", "(van|)"), 
-
 // REGRESSIVE ASSIMILATION OF CONSONANTS
     array("n","","[bp]","m"), 
-        
+
 // PECULIARITY OF "h" 
     array("h","","",""), 
     array("H","","","(x|)"), 
 
-// "e" and "i" ARE TO BE OMITTED BEFORE (SYLLABIC) n & l: Halperin=Halpern; Frankel = Frankl, Finkelstein = Finklstein
-// but Andersen & Anderson should match
-    array ("sen", "[rmnl]", "$", "(zn|zon)"),
-    array ("sen", "", "$", "(sn|son)"),
-    array ("sEn", "[rmnl]", "$", "(zn|zon)"),
-    array ("sEn", "", "$", "(sn|son)"),
-            
-    array ("e", "[BbdfgklmnprsStvzZ]", "[ln]$", ""),
-    array ("i", "[BbdfgklmnprsStvzZ]", "[ln]$", ""),
-    array ("E", "[BbdfgklmnprsStvzZ]", "[ln]$", ""),
-    array ("I", "[BbdfgklmnprsStvzZ]", "[ln]$", ""),
-    array ("Q", "[BbdfgklmnprsStvzZ]", "[ln]$", ""),
-    array ("Y", "[BbdfgklmnprsStvzZ]", "[ln]$", ""),
+// POLISH OGONEK IMPOSSIBLE
+    array ("F", "", "[bdgkpstvzZ]h", "e"), 
+    array ("F", "", "[bdgkpstvzZ]x", "e"), 
+    array ("B", "", "[bdgkpstvzZ]h", "a"), 
+    array ("B", "", "[bdgkpstvzZ]x", "a"), 
 
-    array ("e", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
-    array ("i", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
-    array ("E", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
-    array ("I", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
-    array ("Q", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
-    array ("Y", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
+// "e" and "i" ARE TO BE OMITTED BEFORE (SYLLABIC) n & l: Halperin=Halpern; Frankel = Frankl, Finkelstein = Finklstein
+    array ("e", "[bdfgklmnprsStvzZ]", "[ln]$", ""),
+    array ("i", "[bdfgklmnprsStvzZ]", "[ln]$", ""),
+    array ("E", "[bdfgklmnprsStvzZ]", "[ln]$", ""),
+    array ("I", "[bdfgklmnprsStvzZ]", "[ln]$", ""),
+    array ("F", "[bdfgklmnprsStvzZ]", "[ln]$", ""),
+    array ("Q", "[bdfgklmnprsStvzZ]", "[ln]$", ""),
+    array ("Y", "[bdfgklmnprsStvzZ]", "[ln]$", ""),
+
+    array ("e", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", ""),
+    array ("i", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", ""),
+    array ("E", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", ""),
+    array ("I", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", ""),
+    array ("F", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", ""),
+    array ("Q", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", ""),
+    array ("Y", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", ""),
 
     array("lEs","","","(lEs|lz)"),  // Applebaum < Appelbaum (English + blend English-something forms as Finklestein)
     array("lE","[bdfgkmnprStvzZ]","","(lE|l)"),  // Applebaum < Appelbaum (English + blend English-something forms as Finklestein)
@@ -212,16 +210,6 @@ $approxCommon = array(
     array("lEndEr","","$","lYnder"), 
     array("lendEr","","$","lYnder"), 
     array("lEnder","","$","lYnder"), 
-
-// burg = berg
-    array("burk","","$","(burk|berk)"), 
-    array("bUrk","","$","(burk|berk)"), 
-    array("burg","","$","(burk|berk)"), 
-    array("bUrg","","$","(burk|berk)"), 
-    array("Burk","","$","(burk|berk)"), 
-    array("BUrk","","$","(burk|berk)"), 
-    array("Burg","","$","(burk|berk)"), 
-    array("BUrg","","$","(burk|berk)"), 
              
 // CONSONANTS {z & Z; s & S} are approximately interchangeable
     array ("s", "", "[rmnl]", "z"),
@@ -240,6 +228,7 @@ $approxCommon = array(
     array ("Z", "", "", "z"),
     
     array("exactapproxcommon plus approxcommon")
+    
   );
 
 $approxCommon = array_merge($exactApproxCommon, $approxCommon);

@@ -210,6 +210,12 @@ $approxCommon = array(
     array("lEndEr","","$","lYnder"), 
     array("lendEr","","$","lYnder"), 
     array("lEnder","","$","lYnder"), 
+
+// burg = berg
+    array("bUrk","","$","(burk|berk)"), 
+    array("burk","","$","(burk|berk)"), 
+    array("bUrg","","$","(burk|berk)"), 
+    array("burg","","$","(burk|berk)"), 
              
 // CONSONANTS {z & Z; s & S} are approximately interchangeable
     array ("s", "", "[rmnl]", "z"),
