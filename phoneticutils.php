@@ -21,7 +21,15 @@
    *
    */
 
-  $type = $_GET['type']; // ash, sep, or gen
+  function MyGet($arg) { // to avoid index errors in jewishgen error log file
+    $rv = "";
+    if (array_key_exists($arg, $_GET)) {
+      $rv = $_GET[$arg];
+    }
+    return $rv;
+  }
+
+  $type = MyGet('type'); // ash, sep, or gen
   if ($type == "") {
     $type = "gen"; // generic
   }

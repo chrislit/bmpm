@@ -25,7 +25,7 @@
 
   // make the sum of all languages be visible in the function
 
-   $all = $english+$german+$polish+$romanian+$russian+$hungarian+$spanish+$french+$cyrillic+$hebrew+$portuguese+$italian+$dutch+$czech+$turkish+$greek+$greeklatin+$arabic;
+   $all = $english+$german+$polish+$romanian+$russian+$hungarian+$spanish+$french+$cyrillic+$hebrew+$portuguese+$italian+$dutch+$czech+$turkish+$greek+$greeklatin+$arabic+$latvian;
    $_GET['all'] = $all;
 
   // format of entries in $languageRules table is
@@ -139,24 +139,32 @@
     array("/ty/", $hungarian + $russian + $polish + $greeklatin, true), 
 
 // 1.2 special characters    
+    array('/ā/', $latvian, true),
     array('/ć/', $polish, true),
     array('/ç/', $french + $spanish + $portuguese + $turkish, true),
-    array('/č/', $czech, true),
+    array('/č/', $czech + $latvian, true),
     array('/ď/', $czech, true),
+    array('/ē/', $latvian, true),
     array('/ğ/', $turkish, true),
+    array('/ģ/', $latvian, true),
+    array('/ī/', $latvian, true),
+    array('/ķ/', $latvian, true),
+    array('/ļ/', $latvian, true),
     array('/ł/', $polish, true),
+    array('/ņ/', $latvian, true),
     array('/ń/', $polish, true),
     array('/ñ/', $spanish, true),
     array('/ň/', $czech, true),
     array('/ř/', $czech, true),
     array('/ś/', $polish, true),
     array('/ş/', $romanian + $turkish, true),
-    array('/š/', $czech, true),
+    array('/š/', $czech + $latvian, true),
     array('/ţ/', $romanian, true),
     array('/ť/', $czech, true),
     array('/ź/', $polish, true),
+    array('/ž/', $czech + $latvian, true),
     array('/ż/', $polish, true),
-        
+
     array('/ß/', $german, true),
 
     array('/ä/', $german, true),
@@ -276,17 +284,17 @@
     array("/o/", $cyrillic + $hebrew + $greek + $arabic, false), 
     array("/e/", $cyrillic + $hebrew + $greek + $arabic, false), 
     array("/i/", $cyrillic + $hebrew + $greek + $arabic, false), 
-    array("/y/", $cyrillic + $hebrew + $greek  + $arabic + $romanian + $dutch, false), 
+    array("/y/", $cyrillic + $hebrew + $greek  + $arabic + $romanian + $latvian + $dutch, false), 
     array("/u/", $cyrillic + $hebrew + $greek + $arabic, false), 
   
     array("/j/", $italian, false),
     array("/j[^aoeiuy]/", $french+$spanish+$portuguese+$greeklatin, false), 
     array("/g/", $czech, false),
     array("/k/", $romanian + $spanish + $portuguese + $french + $italian, false),
-    array("/q/", $hungarian + $polish + $russian + $romanian + $czech + $dutch + $turkish + $greeklatin, false),
+    array("/q/", $hungarian + $polish + $russian + $latvian + $romanian + $czech + $dutch + $turkish + $greeklatin, false),
     array("/v/", $polish, false),
-    array("/w/", $french + $romanian + $spanish + $hungarian + $russian + $czech + $turkish + $greeklatin, false),
-    array("/x/", $czech + $hungarian + $dutch + $turkish, false), // polish excluded from the list
+    array("/w/", $french + $romanian + $spanish + $latvian + $hungarian + $russian + $czech + $turkish + $greeklatin, false),
+    array("/x/", $czech + $hungarian + $dutch + $turkish + $latvian, false), // polish excluded from the list
     
     array("/dj/", $spanish + $turkish, false),
     array("/v[^aoeiu]/", $german, false), // in german, "v" can be found before a vowel only

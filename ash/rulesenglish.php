@@ -65,9 +65,8 @@
     array("x","","","ks"),
     
  // VOWELS
-    array("y","^","","j"),
+    array("yi"," ","","i"),
     array("y","^","[aeiouy]","j"),
-    array("yi","^","","i"),
     array("aue","","","aue"), 
     array("oue","","","(aue|oue)"), 
     array("ai","","","(aj|e)"), // rain | said

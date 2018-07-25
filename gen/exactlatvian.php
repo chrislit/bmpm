@@ -3,6 +3,7 @@
   /*
    *
    * Copyright Alexander Beider and Stephen P. Morse, 2008
+   * Copyright Olegs Capligins, 2013-2016
    *
    * This file is part of the Beider-Morse Phonetic Matching (BMPM) System. 
 
@@ -21,16 +22,16 @@
    *
    */
 
-  include_once "approxfrench.php";
-
-  $approxGreeklatin = array(
-    array("N","","",""),
-          
-    array("approxfrench plus approxgreeklatin")
+ // GENERAL
+   $exactLatvian = array(
+       
+       array("exactlatvian")
    );
+ 
+  $exact[LanguageIndex("latvian", $languages)] = $exactLatvian;
 
-  array_pop($approxFrench);
-  $approxGreeklatin = array_merge($approxFrench, $approxGreeklatin);
-  $approx[LanguageIndex("greeklatin", $languages)] = $approxGreeklatin;
 
-?>
+?> 
+
+
+

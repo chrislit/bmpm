@@ -28,7 +28,7 @@ For questions, contact either of the following:
 
 1. Files needed
 
-     // for BM phonetice matching
+     // for BM phonetic matching
 
      phoneticutils.php
      phoneticengine.php
@@ -135,13 +135,13 @@ For questions, contact either of the following:
     // encode name using BM phonetic code
     // assume name to be encoded is in $name, can be in utf-8 or in html-ampersand notation
 
-    include "phoneticutils.php";
-    include "phoneticengine.php";
-    include "gen/lang.php";
-    include "gen/approxcommon.php";
+    require_once "phoneticutils.php";
+    require_once "phoneticengine.php";
+    require_once "gen/lang.php";
+    require_once "gen/approxcommon.php";
     for ($i=0; $i<count($languages); $i++) {
-      include "gen/rules" . $languages[$i] . ".php";
-      include "gen/approx" . $languages[$i] . ".php";
+      require_once "gen/rules" . $languages[$i] . ".php";
+      require_once "gen/approx" . $languages[$i] . ".php";
     }
     $lang = Language($name, $languageRules);
     $codes =
@@ -154,7 +154,7 @@ For questions, contact either of the following:
 
     // encode name using DM soundex code, assume name to be encoded is in $name
   
-    include "dmsoundex.php";
+    require_once "dmsoundex.php";
     $codes = soundx_name($name);
 
 4. Sephardic and Ashkenazic Jewish Names

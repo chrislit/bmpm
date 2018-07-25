@@ -223,15 +223,13 @@
     array("h","^","","(h|H[".($english+$german)."])"), // H can be exact "h" or approximate "kh"
     
  // VOWELS  
-    array("yi","^","","i"),
-    
+    array("yi"," ","","i"),
+    array("ii",""," ","i"), 
+    array("iy",""," ","i"), 
+    array("yy",""," ","i"), 
+       
     // array("e","","$","(e|)"),  // French & English rule disabled except for final -ine
     array("e","in","$","(e|[$french])"), 
-    
-    array("ii","","$","i"), // russian
-    array("iy","","$","i"), // russian
-    array("yy","","$","i"), // russian
-    array("yi","","$","i"), // russian
     array("yj","","$","i"), // russian
     array("ij","","$","i"), // russian
     

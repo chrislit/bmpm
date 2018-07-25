@@ -51,12 +51,18 @@ $approxCommon = array(
     array ("Q", "[BbdfgklmnprsStvzZ]", "[ln]$", ""),
     array ("Y", "[BbdfgklmnprsStvzZ]", "[ln]$", ""),
 
-    array ("e", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
-    array ("i", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
-    array ("E", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
-    array ("I", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
-    array ("Q", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
-    array ("Y", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
+    array ("e", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", "(e|)"),
+    array ("i", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", "(i|)"),
+    array ("E", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", "(E|)"),
+    array ("I", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", "(I|)"),
+    array ("Q", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", "(Q|)"),
+    array ("Y", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", "(Y|)"),
+    //array ("e", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
+    //array ("i", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
+    //array ("E", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
+    //array ("I", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
+    //array ("Q", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
+    //array ("Y", "[BbdfgklmnprsStvzZ]", "[ln][BbdfgklmnprsStvzZ]", ""),
 
     array("lEs","","","(lEs|lz)"),  // Applebaum < Appelbaum (English + blend English-something forms as Finklestein)
     array("lE","[bdfgkmnprStvzZ]","","(lE|l)"),  // Applebaum < Appelbaum (English + blend English-something forms as Finklestein)
@@ -212,6 +218,16 @@ $approxCommon = array(
     array("lEndEr","","$","lYnder"), 
     array("lendEr","","$","lYnder"), 
     array("lEnder","","$","lYnder"), 
+
+// burg = berg
+    array("burk","","$","(burk|berk)"), 
+    array("bUrk","","$","(burk|berk)"), 
+    array("burg","","$","(burk|berk)"), 
+    array("bUrg","","$","(burk|berk)"), 
+    array("Burk","","$","(burk|berk)"), 
+    array("BUrk","","$","(burk|berk)"), 
+    array("Burg","","$","(burk|berk)"), 
+    array("BUrg","","$","(burk|berk)"), 
              
 // CONSONANTS {z & Z; s & S} are approximately interchangeable
     array ("s", "", "[rmnl]", "z"),

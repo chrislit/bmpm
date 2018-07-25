@@ -260,9 +260,11 @@
     array("eu","","","(eu|Yj[$german]|ej[$german]|oj[$german]|Y[$dutch])"),
     array("ey","","","(aj|ej)"),
     array("ia","","","ja"), 
-    array("ie","","","(i[$german]|e[$polish]|ije[$russian]|Q[$dutch]|je)"), 
+    //array("ie","","","(Die[$latvian]|i[$german]|e[$polish]|ije[$russian]|Q[$dutch]|je)"), // Beider_2017
+    array("ie","","","(i[$german]|e[$polish]|ije[$russian]|Q[$dutch]|je)"),
     array("ii","","$","i"), // russian
     array("io","","","(jo|e[$russian])"),
+    //array("iu","","","(Diu[$latvian]|ju)"), // Beider_2017
     array("iu","","","ju"), 
     array("iy","","$","i"), // russian
     array("oe","","","(Y[$german]|oje[$russian]|u[$dutch]|oe)"), 
@@ -274,7 +276,8 @@
     array("õe","","","(oj|on)"), // Port
     array("ua","","","va"),
     array("ue","","","(Q[$german]|uje[$russian]|ve)"), 
-    array("ui","","","(uj|vi|Y[$dutch])"), 
+    //array("ui","","","(Dui[$latvian]|uj|vi|Y[$dutch])"), // Beider_2017
+    array("ui","","","(uj|vi|Y[$dutch])"),
     array("uu","","","(u|Q[$dutch])"), 
     array("uo","","","(vo|o)"),
     array("uy","","","uj"), 
@@ -301,7 +304,8 @@
     array("â","","","a"), 
     array("ã","","","(a|an)"), // Port
     array("ă","","","(e[$romanian]|a)"), // romanian
-    array("č","","", "tS"), // czech
+    array("ā", "", "", "a"), // latvian
+    array("č","","", "tS"), // czech + latvian
     array("ć","","","(tS[$polish]|ts)"),  // polish
     array("ç","","","(s|tS[$turkish])"),
     array("ď","","","(d|dj[$czech])"),
@@ -311,13 +315,20 @@
     array("è","","","e"), 
     array("ê","","","e"), 
     array("ě","","","(e|je[$czech])"), 
+    array("ē", "", "", "e"), // latvian
+    array("ģ","","","(d|dj)"), // latvian
     array("ğ","","",""), // turkish
     array("í","","","i"), 
     array("î","","","i"), 
+    array("ī", "", "", "i"), // latvian
     array("ı","","","(i|e[$turkish]|[$turkish])"), 
+    array("ķ","","","(k|t[$latvian]|tj[$latvian])"), // latvian
+    // array("ļ","","","(l|lj)"), // latvian Beider_2017
+    array("ļ","","","l"), // latvian
     array("ł","","","l"), 
     array("ń","","","(n|nj[$polish])"), // polish
     array("ñ","","","(n|nj[$spanish])"), 
+    array("ņ","","","(n|nj[$latvian])"),
     array("ó","","","(u[$polish]|o)"),  
     array("ô","","","o"), // Port & Fr
     array("õ","","","(o|on[$portuguese]|Y[$hungarian])"), 
@@ -326,17 +337,19 @@
     array("ř","","","(r|rZ[$czech])"),
     array("ś","","","(S[$polish]|s)"), 
     array("ş","","","S"), // romanian+turkish
-    array("š","","", "S"), // czech
+    array("š","","", "S"), // czech + latvian
     array("ţ","","","ts"),  // romanian
     array("ť","","","(t|tj[$czech])"),
     array("ű","","","Q"), // hungarian
     array("ü","","","(Q|u[".($portuguese+$spanish)."])"),
+    array("ū","","","u"), // latvian
     array("ú","","","u"), 
     array("ů","","","u"), // czech
     array("ù","","","u"), // french
     array("ý","","","i"),  // czech
     array("ż","","","Z"), // polish
     array("ź","","","(Z[$polish]|z)"), 
+    array("ž","","","Z"), // czech + latvian
    
     array("ß","","","s"), // german
     array("'","","",""), // russian

@@ -73,6 +73,9 @@
     array("e","","$","(e|)"),
     array("i","","[aou]","j"),
     array("y","","[aoeu]","j"),
+    array("yi","","","i"),
+    array("ii","","","i"),
+    array("yy","","","i"),
     array("y","","","i"),
        
   // TRIVIAL      

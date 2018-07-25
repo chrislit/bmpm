@@ -23,7 +23,7 @@
 
   $languages = array
     ("any", "arabic", "cyrillic", "czech", "dutch", "english", "french", "german", "greek",
-     "greeklatin", "hebrew", "hungarian", "italian", "polish", "portuguese","romanian",
-     "russian", "spanish", "turkish");
+     "greeklatin", "hebrew", "hungarian", "italian", "latvian", "polish", "portuguese",
+     "romanian", "russian", "spanish", "turkish");
 
 ?>

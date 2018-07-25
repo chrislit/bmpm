@@ -31,7 +31,7 @@
 
     // append soundex of each individual word
     $result = "";
-    $MyStrArray = split("[ |,]+", $MyStr); // use space or comma as token delimiter
+    $MyStrArray = preg_split("/[ |,]+/", $MyStr); // use space or comma as token delimiter
     for ($i=0; $i<count($MyStrArray); $i++) {
       if (strlen($MyStrArray[$i]) > 0) { // ignore null at ends of array (due to leading or trailing space)
         if ($i != 0) {
@@ -50,7 +50,7 @@
     // append soundex of each individual word
     $MyStr = preg_replace("[,]", "/", $MyStrArg);
     $result = "";
-    $MyStrArray = split("[,]+", $MyStr); // use comma as token delimiter
+    $MyStrArray = preg_split("/[,]+/", $MyStr); // use comma as token delimiter
     for ($i=0; $i<count($MyStrArray); $i++) {
       if (strlen($MyStrArray[$i]) > 0) { // ignore null at ends of array (due to leading or trailing space)
         if ($i != 0) {

@@ -130,10 +130,10 @@
     array("y","","[au]","j"),
     array("y","[aiou]","","j"), // not in DJSRE
     
-    array("ii","","$","i"), // not in DJSRE
-    array("iy","","$","i"), // not in DJSRE
-    array("yy","","$","i"), // not in DJSRE
-    array("yi","","$","i"), // not in DJSRE
+    array("ii",""," ","i"), // not in DJSRE
+    array("iy",""," ","i"), // not in DJSRE
+    array("yy",""," ","i"), // not in DJSRE
+    array("yi",""," ","i"), // not in DJSRE
     array("yj","","$","i"),
     array("ij","","$","i"),
     

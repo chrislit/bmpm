@@ -48,13 +48,13 @@ $approxCommon = array(
     array ("Q", "[bdfgklmnprsStvzZ]", "[ln]$", ""),
     array ("Y", "[bdfgklmnprsStvzZ]", "[ln]$", ""),
 
-    array ("e", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", ""),
-    array ("i", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", ""),
-    array ("E", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", ""),
-    array ("I", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", ""),
-    array ("F", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", ""),
-    array ("Q", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", ""),
-    array ("Y", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", ""),
+    array ("e", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", "(e|)"),
+    array ("i", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", "(i|)"),
+    array ("E", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", "(E|)"),
+    array ("I", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", "(I|)"),
+    array ("F", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", "(F|)"),
+    array ("Q", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", "(Q|)"),
+    array ("Y", "[bdfgklmnprsStvzZ]", "[ln][bdfgklmnprsStvzZ]", "(Y|)"),
 
     array("lEs","","","(lEs|lz)"),  // Applebaum < Appelbaum (English + blend English-something forms as Finklestein)
     array("lE","[bdfgkmnprStvzZ]","","(lE|l)"),  // Applebaum < Appelbaum (English + blend English-something forms as Finklestein)
@@ -210,6 +210,12 @@ $approxCommon = array(
     array("lEndEr","","$","lYnder"), 
     array("lendEr","","$","lYnder"), 
     array("lEnder","","$","lYnder"), 
+
+// burg = berg
+    array("bUrk","","$","(burk|berk)"), 
+    array("burk","","$","(burk|berk)"), 
+    array("bUrg","","$","(burk|berk)"), 
+    array("burg","","$","(burk|berk)"), 
              
 // CONSONANTS {z & Z; s & S} are approximately interchangeable
     array ("s", "", "[rmnl]", "z"),
