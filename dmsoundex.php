@@ -21,8 +21,12 @@
    *
    */
 
+  include "diacritical_mapping.php";
+
   function soundx_name($MyStrArg) {
 
+    $MyStrArg = html_entity_decode($MyStrArg);
+    $MyStrArg = Map($MyStrArg); // remove diacritics
     $GROUPSEPARATOR = " ";
 
     // replace certain text in strings with a slash
@@ -45,6 +49,7 @@
 
   function soundx_place($MyStrArg) {
 
+    $MyStrArg = Map($MyStrArg); // remove diacritics
     $GROUPSEPARATOR = " ";
 
     // append soundex of each individual word

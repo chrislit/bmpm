@@ -22,47 +22,63 @@
    */
 
 //Sephardic
-include_once "exactapproxcommon.php";
+include_once "exactapproxcommon.php"; 
 
 $approxCommon = array(
+    array ("mbr", "", "", "mr"), 
+    array ("mpr", "", "", "mr"), 
     array ("bens", "^", "", "(binz|s)"), 
     array ("benS", "^", "", "(binz|s)"), 
     array ("ben", "^", "", "(bin|)"), 
-
-    array ("abens", "^", "", "(abinz|binz|s)"), 
-    array ("abenS", "^", "", "(abinz|binz|s)"), 
-    array ("aben", "^", "", "(abin|bin|)"),
-     
-    array ("els", "^", "", "(ilz|alz|s)"), 
-    array ("elS", "^", "", "(ilz|alz|s)"), 
-    array ("el", "^", "", "(il|al|)"), 
-    array ("als", "^", "", "(alz|s)"), 
-    array ("alS", "^", "", "(alz|s)"), 
-    array ("al", "^", "", "(al|)"), 
+    array ("bar", "^", "", "(bar|)"),
+    array ("abens", "^", "", "(binz|s)"), 
+    array ("abenS", "^", "", "(binz|s)"), 
+    array ("aben", "^", "", "(bin|bun|)"),
+    array ("abe", "^", "", "(bi|bu|)"),
+    array ("abi", "^", "", "(bi|bu|)"),
+    array ("abou", "^", "", "(bu|[$french])"),
+    array ("abu", "^", "", "(bu|)"),
+    array ("bou", "^", "", "(bu|[$french])"),
+    array ("bu", "^", "", "(bu|)"),
+    array ("ibn", "^", "", "(ibn|)"),
+    
+    array ("els", "^", "", "(ilz|lz|s)"), 
+    array ("elS", "^", "", "(ilz|lz|s)"), 
+    array ("el", "^", "", "(il|l|)"), 
+    array ("als", "^", "", "(lz|s)"), 
+    array ("alS", "^", "", "(lz|s)"), 
+    array ("al", "^", "", "(l|)"), 
     
    //array ("dels", "^", "", "(dilz|s)"), 
    //array ("delS", "^", "", "(dilz|s)"), 
-    array ("del", "^", "", "(dil|)"), 
+    array ("dal", "^", "", "(dal|[$italian])"), 
+    array ("da", "^", "", "(da|a|)"), 
+    array ("della", "^", "", "(dila|)"), 
     array ("dela", "^", "", "(dila|)"), 
-   //array ("delo", "^", "", "(dila|)"), 
-    array ("da", "^", "", "(da|)"), 
-    array ("de", "^", "", "(di|)"), 
-   //array ("des", "^", "", "(dis|dAs|)"), 
-   //array ("di", "^", "", "(di|)"), 
+    array ("del", "^", "", "(dil|)"),
+    array ("des", "^", "", "(dis|)"), 
+    array ("de", "^", "", "(di|i|)"), 
+    array ("di", "^", "", "(di|i|[$italian])"), 
    //array ("dos", "^", "", "(das|dus|)"), 
-  
-    array("oa","","","(va|a|D)"),
-    array("oe","","","(vi|D)"),
-    array("ae","","","D"),
+    array ("do", "^", "", "(du|u)"), 
+    array ("du", "^", "", "(du|u)"), 
+    
+    array("oa","","","(va|a)"),
+    array("oe","","","(vi|i)"),
+    array("ae","","","(a|i)"),
     
     /// array ("s", "", "$", "(s|)"), // Attia(s)
     /// array ("C", "", "", "s"),  // "c" could actually be "ç"
     
     array("n","","[bp]","m"),
      
-    array("h","","","(|h|f)"), // sound "h" (absent) can be expressed via /x/, Cojab in Spanish = Kohab ; Hakim = Fakim
+    //array ("ha", "^", "", "(ha|a|fa|)"),  
+    //array("h","","","(|h|f)"), // sound "h" (absent) can be expressed via /x/, Cojab in Spanish = Kohab ; Hakim = Fakim
+    array ("ha", "^", "", "(ha|a|)"),  // ha-Levi
+    array("h","","","(|h)"), // sound "h" (absent) can be expressed via /x/, Cojab in Spanish = Kohab 
     array("x","","","h"),
-    
+    array("k","","","(h|k)"),   // Arabic kh can be expressed via both 'h' and 'k'
+        
 // DIPHTHONGS ARE APPROXIMATELY equivalent
     array("aja","^","","(Da|ia)"),                         
     array("aje","^","","(Di|Da|i|ia)"),                         
@@ -70,31 +86,38 @@ $approxCommon = array(
     array("ajo","^","","(Du|Da|iu|ia)"),                         
     array("aju","^","","(Du|iu)"),                         
     
-    array("aj","","","D"),                         
-    array("ej","","","D"),                         
+    array("aj","","","(D|i)"),                         
+    array("ej","","","(D|i)"),                         
     array("oj","","","D"),                         
     array("uj","","","D"),                         
-    array("au","","","D"),                         
-    array("eu","","","D"),                         
-    array("ou","","","D"),                         
-    
-    array ("a", "^", "", "(a|)"),  // Arabic
+    array("au","","","u"),                         
+    array("eu","","","(iu|i|u)"),                         
+    array("ou","","","u"),                         
+        
+    array ("a", "^", "", ""),  // Arabic
     
     array("ja","^","","ia"),                         
     array("je","^","","i"),                         
     array("jo","^","","(iu|ia)"),                         
     array("ju","^","","iu"),                         
             
-    array("ja","","","a"),                         
+    array("ja","","","(a|ia)"),                         
     array("je","","","i"),                         
     array("ji","","","i"),                         
-    array("jo","","","u"),                         
+    array("jo","","","(u|iu)"),                         
     array("ju","","","u"),                         
                             
-    array("j","","","i"),                         
-   
+    array("j","","","i"),   
+    
+    array("i","","$","(i|)"), // often in Arabic
+    array("o", "", "$", "(a|u|i)"), // Italian Bono = Boni
+    array("o", "", "", "u"),                      
+    array("a", "", "$", "(a|i)"), // Italian Bona = Boni
+
 // CONSONANTS {z & Z & dZ; s & S} are approximately interchangeable
+    array ("se", "", "[rmnl]", "(z|si)"),
     array ("s", "", "[rmnl]", "z"),
+    array ("Se", "", "[rmnl]", "(z|si)"),
     array ("S", "", "[rmnl]", "z"),
     array ("s", "[rmnl]", "", "z"),
     array ("S", "[rmnl]", "", "z"), 
@@ -108,12 +131,18 @@ $approxCommon = array(
     array ("S", "", "", "s"),
     array ("dZ", "", "", "z"),
     array ("Z", "", "", "z"),
-  
-    array("i","","$","(i|)"), // often in Arabic
-    array("e", "", "", "i"),
-    
-    array("o", "", "$", "(a|u)"),
-    array("o", "", "", "u"),
+
+// Bisseror = Bisror, Abitbol = Abitebol
+    array("be","","[fktSs]","(p|bi)"),
+    array("pe","","[vgdZz]","(b|pi)"),
+    array("ve","","[pktSs]","(f|vi)"),
+    array("fe","","[vbgdZz]","(v|fi)"),
+    array("ge","","[pftSs]","(k|gi)"),
+    array("ke","","[vbdZz]","(g|ki)"),
+    array("de","","[pfkSs]","(t|di)"),
+    array("te","","[vbgZz]","(d|ti)"),
+    array("ze","","[pfkSt]","(s|zi)"),
+    array("e", "", "", "(i|)"), 
 
 // special character to deal correctly in Hebrew match
     array("B","","","b"), 
@@ -124,7 +153,6 @@ $approxCommon = array(
     
     array("exactapproxcommon plus approxcommon")
    );
-
-$approxCommon = array_merge($exactApproxCommon, $approxCommon);
-
+   $approxCommon = array_merge($exactApproxCommon, $approxCommon);
+  
 ?> 

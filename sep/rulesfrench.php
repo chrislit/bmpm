@@ -43,6 +43,7 @@
     array("qu","","","k"),
     array("q","","","k"),
     array("s","[aeiouyéèê]","[aeiouyéèê]","z"),
+    array("ss","","","s"),
     array("h","[bdgt]","",""), // translit from Arabic
     array("h","","$",""), // foreign
     array("j","","","Z"),

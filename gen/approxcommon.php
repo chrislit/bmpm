@@ -27,8 +27,11 @@ include_once "exactapproxcommon.php";
 $approxCommon = array(
 
 // DUTCH 
-    array ("van", "^", "[bp]", "(vam|)"), 
-    array ("van", "^", "", "(van|)"), 
+    array ("vanden", "^", "", "(vanden|)"), 
+    array ("vander", "^", "", "(vander|)"), 
+    array ("van", "^", "[bp]", "(vam|[$dutch])"), 
+    array ("van", "^", "", "(van|[$dutch])"), 
+
 
 // REGRESSIVE ASSIMILATION OF CONSONANTS
     array("n","","[bp]","m"), 

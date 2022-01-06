@@ -23,7 +23,7 @@
 
     $exactAny = array(
 
-  array("E","","","e"), // final French "e"
+  // array("E","","","e"), // final French "e"
   
   array("exactany")      
   );

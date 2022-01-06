@@ -73,6 +73,8 @@
     array("gen","","$","gen"), 
     array("gin","","$","gin"), 
     array("gg","","","g"), 
+    array("kog","^","[aeoiu]","(kog|koh)"), 
+    array("kag","^","[aeoiu]","(kag|kah)"), 
     array("g","[jaeoiuy]","[aeoiu]","g"), 
     array("g","","[aeoiu]","(g|h)"), 
        

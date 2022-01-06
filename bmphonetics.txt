@@ -82,15 +82,16 @@ For questions, contact either of the following:
 
     dmsoundex.php
     dmlat.php
+    diacritical_mapping.php
 
 2. Batch encoding of all names in database
 
    Note: If you have generated your PHP search engine using the one-step
    search application generator, you encode the names in your database
-   using the intructions in question 410 on the FAQ page.  The instructions
+   using the instructions in question 410 on the FAQ page.  The instructions
    in this section do not apply to you.
    
-   Use a modified version of batchSample.php.  That script has very specific input/output
+   Use a modified version of batchSample.php.  That script has a very specific input/output
    file format, and you will probably want to modify the script to accomodate your
    particular format.
    
@@ -151,6 +152,46 @@ For questions, contact either of the following:
                  $approxCommon,
                  $approx[LanguageIndexFromCode($lang, $languages)],
                  $lang));
+
+    // above is for approximate matches using the generic tables
+    // for any of the three matches (exact, approx, hebrew)
+    // ... using any of the three tables (generic, ashkenazi, sephardic), use the following code
+
+    $table = "gen"; // gen, ash, sep
+    $match = "approx"; // exact, approx, hebrew
+
+    if ($match == "exact") {
+      $matchCommon = $exactCommon;
+      $matchArray = $exact;
+      $concat = true;
+    } else if ($match == "approx") {
+      $matchCommon = $approxCommon;
+      $matchArray = $approx;
+      $concat = false;
+    } else if ($match == "hebrew") {
+      $matchCommon = $hebrewCommon;
+      $matchArray = $hebrew;
+      $concat = false;
+    }
+
+    require_once "phoneticutils.php";
+    require_once "phoneticengine.php";
+    require_once "$table/lang.php";
+    require_once "$table/$match" . "common.php";
+    for ($i=0; $i<count($languages); $i++) {
+      require_once "$table/rules" . $languages[$i] . ".php";
+      require_once "$table/$match" . $languages[$i] . ".php";
+    }
+
+    $lang = Language($name, $languageRules);
+    $codes =
+      PhoneticNumbers(
+        Phonetic($name,
+                 $rules[LanguageIndexFromCode($lang, $languages)],
+                 $matchCommon,
+                 $matchArray[LanguageIndexFromCode($lang, $languages)],
+                 $lang,
+                 $concat));
 
     // encode name using DM soundex code, assume name to be encoded is in $name
   

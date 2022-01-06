@@ -50,25 +50,38 @@
   }
 
   function Phonetic_UTF8($input, $rules, $finalRules1, $finalRules2, $languageArg="", $concat=false) {
+
+    // algorithm used here is as follows:
+    //
+    //   Before doing anything else:
+    //    (1) replace leading:
+    //         de<space>la<space> with dela<space>
+    //         van<space>der<space> with vander<space>
+    //         van<space>den<space> with vanden<space>
+    //    (2) gen and ash: remove all apostrophes (i.e., X'Y ==> XY)
+    //    (3) remove all spaces, apostrophes, and dashes except for the first one (i.e. X Y Z ==> X YZ)
+    //    (4) convert remaining dashes and apostrophes (if any) to space (i.e. X'Y ==> X Y)
+    
+    //   if Exact:
+    //     if <space> is present (i.e. X Y/
+    //       X Y => XY
+    //   if Approx or Hebrew:
+    //     if <space> is present (i.e. X Y)
+    //       if X in list (different lists for ash, sep, gen, see below)
+    //         X Y => Y and XY
+    //       else if X is not in list 
+    //         X Y => X, Y, and XY
+
     $debug = false; // for running on jewishgen server
 $debug = Get('debug'); // for running on my server
 
 if ($debug) echo "<hr>";
     $input = trim($input); // remove any leading or trailing white space
-    $input = mb_strtolower($input, mb_detect_encoding($input));
-//    $input = mb_strtolower($input, "UTF-8");
-
-    $input = str_replace("-", " ", $input); // treat dash as if it were a space
-    $input = trim($input); // remove any leading spaces introduced by above replacement of dashes to spaces
-
-/*
-echo "$input<br>";
-echo "[";
-for ($i=0; $i<strlen($input); $i++) {
-  echo dechex(ord(substr($input, $i, 1)))." ";
-}
-echo "]<br>";
-*/
+    $encoding = mb_detect_encoding($input);
+    if ($encoding === false) {
+      $encoding = mb_internal_encoding();
+    }
+    $input = mb_strtolower($input, $encoding);
 
     // determine type (ashkenazic, sephardic, generic
 
@@ -81,105 +94,82 @@ echo "]<br>";
       $sep = true; // sephardic
     }
 
-    if (!$ash && !$sep) {
-      // both discard and concatenate certain words if at the start of the name
+    // remove spaces from within certain leading words
 
-      $list = array("da", "dal", "de", "del", "dela", "de la", "della", "des", "di", "do", "dos", "du", "van", "von");
-      for ($j=0; $j<count($list); $j++) { // discard certain words at start of the name, including d'
-        $prefix = $list[$j] . " ";
-        $prefixLength = strlen($prefix);
-        if (substr($input, 0, $prefixLength) == $prefix) { // check for words from list
-          $remainder = substr($input, $prefixLength);
-          $combined = $list[$j] . $remainder;
-          $result =
-            RedoLanguage($remainder, $rules, $finalRules1, $finalRules2, $concat) .
-            "-" .
-            RedoLanguage($combined, $rules, $finalRules1, $finalRules2, $concat);
-          return $result;
-        } else if (substr($input, 0, 2) == "d'") { // check for d'
-          $remainder = substr($input, 2);
-          $combined = "d" . $remainder;
-          $result =
-            RedoLanguage($remainder, $rules, $finalRules1, $finalRules2, $concat) .
-            "-" .
-            RedoLanguage($combined, $rules, $finalRules1, $finalRules2, $concat);
-          return $result;
-        }
+    $list = array("de la", "van der", "van den");
+    for ($i=0; $i<count($list); $i++) {
+      $target = $list[$i] . " ";
+      if (substr($input, 0, strlen($target)) == $target) {
+        $target = $list[$i];
+        $input = str_replace(" ", "", $target) . substr($input, strlen($target));
       }
     }
 
-    $words = explode(" ", $input); // create array of the individual words in the name
-    $words2 = array();
+    // for ash and gen -- remove all apostrophes
 
-    if ($sep) { // sephardic
+    if (!$sep) {
+      $input = str_replace("'", "", $input);
+    }
 
-      // for each word in the name, delete portions of word preceding apostrophe
-      // ex: d'avila d'aguilar --> avila aguilar
-      // also discard certain words in the name
+    // remove all apostrophoes, dashes, and spaces except for the first one, replace first one with space
+    
+    $list = array("'", "-", " ");
+    for ($i=0; $i<count($list); $i++) {
+      $target = $list[$i];
+      if (($firstOne=strpos($input, $target)) !== false) {
+        $input = str_replace($target, "", $input); // remove all occurences
+        $input = substr($input, 0, $firstOne) . " " . substr($input, $firstOne); // replace first occurence with space
+      }
+    }
+
+    if ($sep) {
+
+      $list = array( // sephardi
+        "abe", "aben", "abi", "abou", "abu", "al", "bar", "ben", "bou", "bu",
+         "d", "da", "dal", "de","del", "dela","della", "des", "di",
+        "el", "la", "le", "ibn", "ha"
+      );
+
+    } else if ($ash) { // ashkenazi
 
       $list = array(
-        "al", "el", "da", "dal", "de", "del", "dela", "de la",
-        "della", "des", "di", "do", "dos", "du", "van", "von");
+        "ben", "bar", "ha"
+      );
 
-      // note that we can never get a match on "de la" because we are checking single words below
-      // this is a bug, but I won't try to fix it now
+    } else { // generic
 
-      for ($i=0; $i<count($words); $i++) { // process each word in the name
-        $parts = explode("'", $words[$i]); // create array of each part between apostrophes
-        $word = $parts[count($parts)-1]; // take the last part only
-        $inlist = false;
-        for ($j=0; $j<count($list); $j++) { // discard certain words in the name
-          if ($word == $list[$j]) {
-            $inlist = true;
-            break;
-          }
-        }
-        if (!$inlist) {
-          // discard certain words
-          $words2[count($words2)] = $word;
-        }
-      }
-
-    } else if ($ash) { // ashkenazic
-
-      // discard certain words if at the start of the name
-
-      $list = array("bar", "ben", "da", "de", "van", "von");
-
-      for ($i=0; $i<count($words); $i++) { // process each word in the name
-        $word = $words[$i];
-        $inlist = false;
-        if ($i==0 && count($words) > 1) { // at first word of a multi-word name
-          for ($j=0; $j<count($list); $j++) { // discard certain words in the name
-            if ($word == $list[$j]) {
-              $inlist = true;
-              break;
-            }
-          }
-        }
-        if (!$inlist) {
-          $words2[count($words2)] = $word;
-        }
-      }
-
-    } else { // general
-      $words2 = $words;
+      $list = array(
+        "abe", "aben", "abi", "abou", "abu", "al", "bar", "ben", "bou", "bu",
+        "d", "da", "dal", "de", "del", "dela","della", "des", "di", "dos", "du",
+        "el", "la", "le", "ibn", "van", "von", "ha", "vanden", "vander"
+      );
     }
 
-    if ($concat) { // concatenate the separate words of a multi-word name (normally used for exact matches)
-      $input = implode(" ", $words2);
-    } else if (count($words2) == 1) { // not a multi-word name
-      $input = $words2[0];
-    } else { // encode each word in a multi-word name separately (normally used for approx matches)
-      $result = "";
-      for ($i=0; $i<count($words2); $i++) {
-        $word = $words2[$i];
-        $result .= "-" . RedoLanguage($word, $rules, $finalRules1, $finalRules2, $concat);
+    // process a multiword name of form X Y
+
+    if (($space=strpos($input, " ")) !== false) { // number of words is exactly two
+
+      if ($concat) { // exact matches
+        // X Y => XY 
+        $input = str_replace(" ", "", $input); // concatenate the separate words of a name
+      } else { // number of words is exactly two
+        $word1 = substr($input, 0, $space);
+        $word2 = substr($input, $space+1);
+        if (in_array($word1, $list)) {
+          // X Y => Y and XY
+          $results = RedoLanguage($word2, $rules, $finalRules1, $finalRules2, $concat);
+          $results .= "-" . RedoLanguage("$word1$word2", $rules, $finalRules1, $finalRules2, $concat);
+        } else { // first word is not in list
+          // X Y => X, Y, and XY
+          $results = RedoLanguage($word1, $rules, $finalRules1, $finalRules2, $concat);
+          $results .= "-" . RedoLanguage($word2, $rules, $finalRules1, $finalRules2, $concat);
+          $results .= "-" . RedoLanguage("$word1$word2", $rules, $finalRules1, $finalRules2, $concat);
+        }
+        return $results;
       }
-      return substr($result, 1); // strip off the leading dash
     }
 
-//    $input = preg_replace("/[^a-z]/i", "", $input); // remove all but letters -- ng, will remove diacriticals
+    // at this point, $input is only a single word
 
     $inputLength = strlen($input);
 
@@ -290,7 +280,6 @@ if ($debug) {
 
         $candidate = ApplyRuleIfCompatible($phonetic, $rule[$phoneticPos], $languageArg);
         if ($candidate === false) {
-//if ($debug) echo "rejecting rule #$r because of incompatible attributes<br>";
 if ($debug) echo "rejecting rule #$r because of incompatible attributes<br>" .
                  "&nbsp;&nbsp;&nbsp;pattern=$pattern<br>" .
                  "&nbsp;&nbsp;&nbsp;lcontext=$lcontext<br>".
@@ -361,13 +350,6 @@ if ($debug) echo "after language rules: <b>$phonetic</b><br><br>";
 if ($debug) echo "<br>applying final rules from ($fileName) to $phonetic<br>";
       $phonetic2 = "";
 
-/*
-      $attribute = "";
-      $attributeStart = strpos($phonetic, "[");
-      if ($attributeStart !== false) {
-        $attribute = substr($phonetic, $attributeStart);
-      }
-*/
       $phoneticx = NormalizeLanguageAttributes($phonetic, true);
       for ($i=0; $i<strlen($phonetic);) {
         $found = false;
@@ -382,7 +364,6 @@ if ($debug) echo "<br>applying final rules from ($fileName) to $phonetic<br>";
               break;
             }
           }
-//          $attribute = ""; // no need for separate attribute now that we have combined it with phonetic2
           continue;
         }
 
@@ -435,7 +416,6 @@ if ($debug) echo "<br>applying final rules from ($fileName) to $phonetic<br>";
           // check for incompatible attributes
 
           $candidate = ApplyRuleIfCompatible($phonetic2, $rule[$phoneticPos], $languageArg);
-//          $candidate = ApplyRuleIfCompatible($phonetic2.$attribute, $rule[$phoneticPos]);
           if ($candidate === false) {
 if ($debug) echo "rejecting rule #$r because of incompatible attributes<br>";
             continue;
@@ -477,9 +457,9 @@ if ($debug) echo "no rules match for phonetic item $k at position $i: <b>$phonet
   }
 
   function PhoneticNumber($phonetic, $hash=true) {
-if (($bracket=strpos($phonetic, "[")) !== false) {
-  return substr($phonetic, 0, $bracket);
-}
+    if (($bracket=strpos($phonetic, "[")) !== false) {
+      return substr($phonetic, 0, $bracket);
+    }
 return ($phonetic); // experimental !!!!
     $phoneticLetters = "!bdfghjklmnNprsSt68vwzZxAa4oe5iI9uUEyQY"; // true phonetic letters
     $phoneticLetters .= "1BCDEHJKLOTUVWX"; // metaphonetic letters
@@ -509,9 +489,7 @@ return ($phonetic); // experimental !!!!
       }
       $result *= strlen($phoneticLetters) + strlen($metaPhoneticLetters);
       if ($hash) {
-//$result = $result & 0xff;
-$result = $result & 0x7fffffff;
-//        $result = Mod($result, 999999999);
+        $result = $result & 0x7fffffff;
       }
       $result += $j;
     }
@@ -565,8 +543,6 @@ $result = $result & 0x7fffffff;
   }
 
   function PhoneticNumbers($phonetic) {
-//echo "phonetic=$phonetic<br>";
-//???    $phonetic = RemoveDuplicateAlternates($phonetic);
     $phoneticArray = explode("-", $phonetic); // for names with spaces in them
     $result = "";
     for ($i=0; $i<count($phoneticArray); $i++) {
@@ -575,7 +551,6 @@ $result = $result & 0x7fffffff;
       }
       $result .= substr(PhoneticNumbersWithLeadingSpace($phoneticArray[$i]), 1);
     }
-//echo "numbers=$result<br>";
     return $result;
   }
 

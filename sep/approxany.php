@@ -24,7 +24,7 @@
 // SEPHARDIC 
 $approxAny = array(
 
-  array("E","","",""), // Final French "e"
+  // array("E","","",""), // Final French "e"
 
   array("approxany")      
   );

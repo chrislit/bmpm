@@ -31,12 +31,12 @@
     array("gli","","","(gli|l[$italian])"), 
     array("gni","","","(gni|ni[".($italian+$french)."])"),
     array("gn","","[aeou]","(n[".($italian+$french)."]|nj[".($italian+$french)."]|gn)"), 
-    array("gh","","","g"), // It + translit. from Arabic
-    array("dh","","","d"), // translit. from Arabic
-    array("bh","","","b"), // translit. from Arabic
-    array("th","","","t"), // translit. from Arabic
-    array("lh","","","l"), // Port
-    array("nh","","","nj"), // Port
+    array("gh","","","(g|gh)"), // It + translit. from Arabic
+    array("dh","","","(d|dh)"), // translit. from Arabic
+    array("bh","","","(b|bh)"), // translit. from Arabic
+    array("th","","","(t|th)"), // translit. from Arabic
+    array("lh","","","(l[$portuguese]|lh)"), 
+    array("nh","","","(n[$portuguese]|nh)"), 
           
     array("ig","[aeiou]","","(ig|tS[$spanish])"),
     array("ix","[aeiou]","","S"), // Sp
@@ -73,7 +73,7 @@
         
     array("s","^","","s"),
     array("s","[aáuiíoóeéêy]","[aáuiíoóeéêy]","(s[$spanish]|z[".($portuguese+$french+$italian)."])"), 
-    array("s","","[dglmnrv]","(z|Z[$portuguese])"), 
+    array("s","","[dglmnrv]","(z|s|Z[$portuguese])"), 
             
     array("z","","$","(s|ts[$italian]|S[$portuguese])"), // ts It, s/S/Z Port, s in Sp, z Fr
     array("z","","[bdgv]","(z|dz[$italian]|Z[$portuguese])"), // dz It, Z/z Port, z Sp & Fr
@@ -107,7 +107,8 @@
     array("i","","[aeou]","j"),
     array("y","[aáuiíoóeéê]","","j"),
     array("y","","[aeiíou]","j"),
-    array("e","","$","(e|E[$french])"),
+    // array("e","","$","(e|E[$french])"),
+    array("e","","$","(e|[$french])"),
            
     array("ão","","","(au|an)"), // Port
     array("ãe","","","(aj|an)"), // Port

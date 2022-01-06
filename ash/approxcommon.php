@@ -30,6 +30,10 @@ $approxCommon = array(
     array("n","","[bp]","m"), 
 
 // PECULIARITY OF "h" 
+    array("kAg","^","[AEOIUaeoiu]","(kOg|kO[$russian])"), 
+    array("kOg","^","[AEOIUaeoiu]","(kAg|kA[$russian])"), 
+    array("kog","^","[AEOIUaeoiu]","(kog|ko[$russian])"), 
+    array("kag","^","[AEOIUaeoiu]","(kag|ka[$russian])"), 
     array("h","","",""), 
     array("H","","","(x|)"), 
 
